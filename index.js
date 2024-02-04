@@ -9,6 +9,8 @@ import { up } from './navigation/up.js';
 import { cd } from './navigation/cd.js';
 import { ls } from './navigation/ls.js';
 import { cat } from './basic_operations/cat.js';
+import { add } from './basic_operations/add.js';
+import { rename } from 'fs';
 
 const parentDir = path.dirname(process.cwd());
 
@@ -47,7 +49,7 @@ const fileManager = async () => {
                 break;
             }
             case 'add': {
-                await add(input, main_path);
+                await add(input);
                 break;
             }
             case 'cat': {
@@ -55,11 +57,19 @@ const fileManager = async () => {
                 break;
             }
             case 'rn': {
-                await rn(input, main_path);
+                await rename(input);
                 break;
             }
             case 'cp': {
-                await cp(input, main_path);
+                await copy(input);
+                break;
+            }
+            case 'mv': {
+                await move(input);
+                break
+            }
+            case 'rm': {
+                await remove(input);
                 break;
             }
         }
