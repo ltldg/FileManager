@@ -72,6 +72,21 @@ const fileManager = async () => {
                 await remove(input);
                 break;
             }
+            case 'hash': {
+                await hash(input);
+                break;
+            }
+            case 'os': {
+                await os(input);
+                break;
+            }
+            case 'compress' : {
+                await compress(input);
+                break;
+            }
+            default: {
+                console.log('Invalid command');
+            }
         }
         console.log(`You are currently in ${main_path()}`);
     });
