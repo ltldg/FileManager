@@ -4,13 +4,17 @@
 
 import readline from 'readline';
 import path from 'path';
-import os from 'os';
+import {ops} from './operating_system/os.js';
 import { up } from './navigation/up.js';
 import { cd } from './navigation/cd.js';
 import { ls } from './navigation/ls.js';
 import { cat } from './basic_operations/cat.js';
 import { add } from './basic_operations/add.js';
-import { rename } from 'fs';
+import { rename } from './basic_operations/rename.js';
+import { hash } from './hash/hash.js';
+import { copy } from './basic_operations/copy.js';
+import { move } from './basic_operations/move.js';
+import { remove } from './basic_operations/delete.js';
 
 const parentDir = path.dirname(process.cwd());
 
@@ -26,11 +30,12 @@ const fileManager = async () => {
     //const home  = os.homedir();
     //process.chdir(home);
     const main_path = () => process.cwd();    
+    console.log(`You are currently in ${process.cwd()}`);
 
     console.log(`Welcome to the File Manager, ${"dog"}!\n`);
     rl.on('line', async (input) => {
         let argument = input.trim().split(' ')[0];
-       
+
         switch(argument) {
             case '.exit': {
                 console.log(`Thank you for using File Manager, ${"dog"}!`);
@@ -77,11 +82,15 @@ const fileManager = async () => {
                 break;
             }
             case 'os': {
-                await os(input);
+                await ops(input);
                 break;
             }
             case 'compress' : {
                 await compress(input);
+                break;
+            }
+            case 'decompress' : {
+                await decompress(input);
                 break;
             }
             default: {

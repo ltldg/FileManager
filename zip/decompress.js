@@ -1,16 +1,17 @@
 import fs from 'fs';
 import zlib from 'zlib';
-import path from 'path';
+import { absolutOr } from '../utils/utils.js';
 
 
 
 
 
 export const decompress = async (input) => {
-    const pathToFile = input.trim().split(' ')[1]
-    const pathToNewFile = input.trim().split(' ')[2]
+    const pathToFileArg = input.trim().split(' ')[1]
+    const pathToNewFileArg = input.trim().split(' ')[2]
 
-
+    const pathToFile= absolutOr(pathToFileArg);
+    const pathToNewFile= absolutOr(pathToNewFileArg);
     const readStream = fs.createReadStream(pathToFile);
     const writeStream = fs.createWriteStream(pathToNewFile);
     const brotli = zlib.createBrotliDecompress();

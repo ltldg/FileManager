@@ -4,10 +4,10 @@ import fs from 'fs/promises';
 
 
 
-const directoryPath = process.cwd();
 
 
 export const ls = async () => {
+    const directoryPath = process.cwd();
 
 // read directory content
 fs.readdir(directoryPath)

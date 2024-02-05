@@ -1,13 +1,12 @@
 
 import fs from 'fs/promises';
-import path from 'path';
-import { fileURLToPath } from "url";
+import { absolutOr } from '../utils/utils.js';
 
 
 
-const remove = async (input) => {
+export const remove = async (input) => {
     const fileName = input.trim().split(' ')[1];
-    const filePath = path.join(__dirname, 'files', 'fileToRemove.txt');
+    const filePath = absolutOr(fileName);
     try {
         await fs.access(filePath, fs.constants.F_OK);
     } catch (error) {
@@ -20,5 +19,3 @@ const remove = async (input) => {
         throw new Error('FS operation failed');
     }
 };
-
-await remove();

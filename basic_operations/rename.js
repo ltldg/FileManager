@@ -1,18 +1,17 @@
 
 import fs from'fs/promises';
 import path from 'path';
-import { fileURLToPath } from "url";
+import { absolutOr } from '../utils/utils.js';
 
 
-const rename = async (input) => {
+export const rename = async (input) => {
 
     const fileNameFirst = input.trim().split(' ')[1]
     const fileNameSecond = input.trim().split(' ')[2]
 
 
-    const __dirname = path.dirname(fileNameFirst);
-    const firstFile = path.join(fileNameFirst);
-    const secondFile = path.join(__dirname,fileNameSecond);             
+    const firstFile =  absolutOr(fileNameFirst);
+    const secondFile = absolutOr(fileNameSecond);          
 
     try {
         await fs.access(firstFile, fs.constants.F_OK);
@@ -35,5 +34,3 @@ const rename = async (input) => {
         throw new Error('FS operation failed');
       }
 };
-
-await rename();

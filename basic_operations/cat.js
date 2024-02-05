@@ -1,7 +1,12 @@
 import fs from 'fs';
+import path from 'path';
 
 export const cat = async (command) => {
-    const fileName = command.trim().split(' ')[1]
+    let fileName = command.trim().split(' ')[1]
+
+    if(!path.isAbsolute(fileName)){
+        fileName = path.join(process.cwd(), fileName);
+    }
 const readStream = fs.createReadStream(fileName);
 
 readStream.on('data', (chunk) => {

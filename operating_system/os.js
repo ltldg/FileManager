@@ -6,13 +6,12 @@ import os from 'os';
 
 
 
-export const os = async (input) => {
-    const secongArg = input.trim().split(' ')[2];
-
+export const ops = async (input) => {
+    const secongArg = input.trim().split(' ')[1];
 
     switch(secongArg) {
         case '--EOL': {
-            return JSON.stringify(os.EOL);
+            console.log(`End of line: ${JSON.stringify(os.EOL)}`);
         }
         case '--cpus': {
             const answer = {
@@ -33,16 +32,16 @@ export const os = async (input) => {
                     }
                 );
             }
-            return answer;
+            return console.log(answer);
         }
         case '--homedir': {
-            return os.homedir();
+            return console.log(os.homedir());
         }
         case '--username': {
-            return os.userInfo().username;
+            return console.log(os.userInfo().username) ;
         }
         case '--architecture': {
-            return process.arch;
+            console.log(process.arch);
         }
         case '--platform': {
             return os.platform();

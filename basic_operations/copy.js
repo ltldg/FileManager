@@ -1,14 +1,14 @@
 import fs from 'fs';
-import path from 'path';
+import { absolutOr } from '../utils/utils.js';
 
 
-const copy = async (input) => { 
+export const copy = async (input) => { 
     const fileNameFirst = input.trim().split(' ')[1]
     const fileNameSecond = input.trim().split(' ')[2]
 
 
-    const sourceFile = path.join(fileNameFirst);
-    const destinationFile = path.join(fileNameSecond);    
+    const sourceFile = absolutOr(fileNameFirst);
+    const destinationFile = absolutOr(fileNameSecond);    
 
     const readStream = fs.createReadStream(sourceFile);
     const writeStream = fs.createWriteStream(destinationFile);
@@ -26,5 +26,3 @@ const copy = async (input) => {
 
 }
 
-
-await copy();
