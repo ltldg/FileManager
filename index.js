@@ -42,7 +42,6 @@ if (user === undefined) {
     rl.on('line', async (input) => {
         let argument = input.trim().split(' ')[0];
     
-        
         switch(argument) {
             case '.exit': {
                 console.log(`Thank you for using File Manager, ${user}!`);
@@ -105,10 +104,11 @@ if (user === undefined) {
             }
         }
         console.log(`You are currently in ${main_path()}`);
-        process.on('SIGINT', () => {
-            console.log(`Thank you for using File Manager, ${user}!`);
-            process.exit();
-          }); 
+
+    });
+    rl.on('SIGINT', () => {
+        console.log(`Thank you for using File Manager, ${user}!`);
+        rl.close();
     });
 }
 
