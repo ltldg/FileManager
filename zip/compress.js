@@ -1,7 +1,7 @@
 import fs   from 'fs';
 import zlib from 'zlib';
 import { absolutOr } from '../utils/utils.js';
-
+import path from 'path';
 
 
 
@@ -13,7 +13,8 @@ export const compress = async (input) => {
 
 
     const pathToFile= absolutOr(pathToFileArg);
-    const pathToNewFile= absolutOr(pathToNewFileArg);
+    const pathToNewFile= path.join(absolutOr(pathToNewFileArg), path.basename(pathToFile) +'.br');
+
     const readStream = fs.createReadStream(pathToFile);
     const writeStream = fs.createWriteStream(pathToNewFile);
     const brotli = zlib.createBrotliCompress();

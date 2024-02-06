@@ -15,6 +15,8 @@ import { hash } from './hash/hash.js';
 import { copy } from './basic_operations/copy.js';
 import { move } from './basic_operations/move.js';
 import { remove } from './basic_operations/delete.js';
+import { compress } from './zip/compress.js';
+import { decompress } from './zip/decompress.js';
 
 const parentDir = path.dirname(process.cwd());
 
@@ -31,14 +33,19 @@ const fileManager = async () => {
     //process.chdir(home);
     const main_path = () => process.cwd();    
     console.log(`You are currently in ${process.cwd()}`);
-
-    console.log(`Welcome to the File Manager, ${"dog"}!\n`);
+    const user = process.argv[2].split('=')[1];
+if (user === undefined) {
+        console.log('Please provide a username as an argument. Example: npm run start -- --username=Mike');
+        process.exit();
+}
+    console.log(`Welcome to the File Manager, ${user}!\n`);
     rl.on('line', async (input) => {
         let argument = input.trim().split(' ')[0];
-
+    
+        
         switch(argument) {
             case '.exit': {
-                console.log(`Thank you for using File Manager, ${"dog"}!`);
+                console.log(`Thank you for using File Manager, ${user}!`);
                 process.exit();
             }
             case 'up': {
@@ -98,6 +105,10 @@ const fileManager = async () => {
             }
         }
         console.log(`You are currently in ${main_path()}`);
+        process.on('SIGINT', () => {
+            console.log(`Thank you for using File Manager, ${user}!`);
+            process.exit();
+          }); 
     });
 }
 
